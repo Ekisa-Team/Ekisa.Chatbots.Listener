@@ -1,0 +1,48 @@
+name: "Create release"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET Core
+      - uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 5.0.x
+
+      - name: dotnet restore
+        run: dotnet restore
+
+      - name: build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Zip the Build
+        run: zip -r ${{ secrets.ReleaseZipName }} ./Ekisa.Chatbots.Listener/bin/Release/net5.0/
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.run_number }}
+          release_name: Ekisa.Chatbots.Listener ${{ github.ref }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./${{ secrets.ReleaseZipName }}.zip
+          asset_name: ${{ secrets.ReleaseZipName }}.zip
+          asset_content_type: application/zip
