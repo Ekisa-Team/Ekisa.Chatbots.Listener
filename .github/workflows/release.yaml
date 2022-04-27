@@ -20,7 +20,7 @@ jobs:
         run: dotnet restore
 
       - name: build
-        run: dotnet build --configuration Release --no-restore -0 "bin-x64"
+        run: dotnet build --configuration Release --no-restore -o "bin-x64"
 
       - name: Zip the Build
         run: 7z a -tzip "bin-x64.zip" "./bin-x64/*"
