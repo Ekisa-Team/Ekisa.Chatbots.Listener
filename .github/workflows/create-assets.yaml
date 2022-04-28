@@ -18,10 +18,10 @@ jobs:
         run: dotnet restore
 
       - name: build
-        run: dotnet build --configuration Release --no-restore -o "kibot-x64"
+        run: dotnet build --configuration Release --no-restore -o "kibot-quiron-listener-x64"
 
       - name: Zip the Build
-        run: 7z a -tzip "kibot-x64.zip" "./kibot-x64/*"
+        run: 7z a -tzip "kibot-quiron-listener-x64.zip" "./kibot-quiron-listener-x64/*"
 
       - name: Create release
         id: create_release
@@ -40,6 +40,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./kibot-x64.zip
-          asset_name: kibotlistener_${{ github.event.release.tag_name }}-x64.zip
+          asset_path: ./kibot-quiron-listener-x64.zip
+          asset_name: kibot-quiron-listener-${{ github.event.release.tag_name }}-x64.zip
           asset_content_type: application/zip

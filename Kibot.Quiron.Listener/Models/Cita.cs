@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Kibot.Appointment.Listener.Models
+namespace Kibot.Quiron.Listener.Models
 {
     public class ChatbotCita
     {

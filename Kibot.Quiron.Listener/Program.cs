@@ -1,4 +1,4 @@
-﻿using Kibot.Appointment.Listener.Models;
+﻿using Kibot.Quiron.Listener.Models;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 
-namespace Kibot.Appointment.Listener
+namespace Kibot.Quiron.Listener
 {
     public class Program
     {
