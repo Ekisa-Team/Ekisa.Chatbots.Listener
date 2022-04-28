@@ -1,4 +1,4 @@
-﻿using Ekisa.ChatBot.Client.Models;
+﻿using Kibot.Appointment.Listener.Models;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 
-namespace Ekisa.Chatbots.Listener
+namespace Kibot.Appointment.Listener
 {
     public class Program
     {
@@ -41,15 +41,17 @@ namespace Ekisa.Chatbots.Listener
                     }
                     else
                     {
-                        Console.WriteLine("SignalR connection established");
+                        Console.WriteLine($"Client: {_clientId}");
+                        Console.WriteLine("Connection established");
+                        Console.WriteLine($"Listening events from {_hubAddress}\n");
                     }
                 }).Wait();
 
                 connection.On<string>("received", citasRecibidas =>
                 {
-                    var citas = JsonConvert.DeserializeObject<List<ChatBotCita>>(citasRecibidas);
+                    var citas = JsonConvert.DeserializeObject<List<ChatbotCita>>(citasRecibidas);
                     var citasCliente = citas.Where(x => x.IdCliente == _clientId).ToList();
-                    Console.WriteLine($"Citas recibidas: {citasCliente.Count}");
+                    Console.WriteLine($"Citas: {citasCliente.Count}");
 
                     foreach (var cita in citasCliente)
                     {
@@ -66,7 +68,7 @@ namespace Ekisa.Chatbots.Listener
             }
         }
 
-        static void ActualizarCita(ChatBotCita cita)
+        static void ActualizarCita(ChatbotCita cita)
         {
             try
             {

@@ -30,7 +30,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.run_number }}
-          release_name: Ekisa.Chatbots.Listener ${{ github.ref }}
+          release_name: ${{ github.ref }}
           draft: false
           prerelease: false
 
@@ -41,5 +41,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./kibot-x64.zip
-          asset_name: kibot_${{ github.event.release.tag_name }}_listener-x64.zip
+          asset_name: kibotlistener_${{ github.event.release.tag_name }}-x64.zip
           asset_content_type: application/zip

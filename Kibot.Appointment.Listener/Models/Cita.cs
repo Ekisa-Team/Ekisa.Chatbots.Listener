@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Ekisa.ChatBot.Client.Models
+namespace Kibot.Appointment.Listener.Models
 {
-    public class ChatBotCita
+    public class ChatbotCita
     {
         public int Id { get; set; }
         public short? IdCliente { get; set; }
