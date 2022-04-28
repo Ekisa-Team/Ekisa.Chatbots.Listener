@@ -23,23 +23,12 @@ jobs:
       - name: Zip the Build
         run: 7z a -tzip "kibot-quiron-listener-x64.zip" "./kibot-quiron-listener-x64/*"
 
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.run_number }}
-          release_name: ${{ github.ref }}
-          draft: false
-          prerelease: false
-
       - name: Upload release asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ github.event.release.upload_url }}
           asset_path: ./kibot-quiron-listener-x64.zip
-          asset_name: kibot-quiron-listener-${{ github.event.release.tag_name }}-x64.zip
+          asset_name: kibot-quiron-listener-x64-${{ github.event.release.tag_name }}.zip
           asset_content_type: application/zip
